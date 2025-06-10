@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { RoomCategory } from './db/entities/room-category.entity';
 import { SeederModule } from './seeder/seeder.module';
+import { DatePricesModule } from './date-prices/date-prices.module';
+import { RoomCategoriesModule } from './room-categories/room-categories.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { SeederModule } from './seeder/seeder.module';
     TypeOrmModule.forFeature([RoomCategory]),
     HotelRatesModule,
     SeederModule,
+    DatePricesModule,
+    RoomCategoriesModule,
   ],
 })
 export class AppModule { }

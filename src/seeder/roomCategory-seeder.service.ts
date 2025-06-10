@@ -7,14 +7,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class RoomCategorySeeder {
   constructor(
     @InjectRepository(RoomCategory)
-    private roomCategoryRepo: Repository<RoomCategory>
-  ) { }
+    private roomCategoryRepository: Repository<RoomCategory>,
+  ) {}
 
-  public async seed() {
-    const existing = await this.roomCategoryRepo.count();
-
+  public async seed(): Promise<void> {
+    const existing = await this.roomCategoryRepository.count();
     if (existing > 0) {
-      console.warn('[Room categories seeder]: room categories already exist, skipping seed.');
+      console.warn(
+        '[Room categories seeder]: room categories already exist, skipping seed.',
+      );
       return;
     }
 
@@ -30,7 +31,7 @@ export class RoomCategorySeeder {
       { name: 'Twin Room' },
     ];
 
-    await this.roomCategoryRepo.save(categories);
+    await this.roomCategoryRepository.save(categories);
 
     console.log('[Room categories seeder]: seeder was successfully executed.');
   }

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { RoomCategoryRate } from './room-category-rate.entity';
+import { WeekPrice } from './week-price.entity';
 
-@Entity()
+@Entity('room_categories')
 export class RoomCategory {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -9,6 +9,13 @@ export class RoomCategory {
   @Column({ type: 'varchar', nullable: true, length: 255, unique: true })
   name: string;
 
-  @OneToMany(() => RoomCategoryRate, (roomCategoryRate) => roomCategoryRate.roomCategory)
-  roomCategoryRates: RoomCategoryRate[];
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @OneToMany(() => WeekPrice, (weekPrice: WeekPrice) => weekPrice.roomCategory)
+  weekPrice: WeekPrice;
 }
